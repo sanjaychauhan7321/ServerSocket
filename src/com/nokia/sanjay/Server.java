@@ -95,9 +95,9 @@ public class Server {
 
 			try {
 				// Data received!
-				System.out.println();
-				System.out.println("Data received from client!");
+				System.out.println();			
 				dataRecievedFromClient = scanner.nextLine();
+				System.out.println("Data received from client!");
 				System.out.println();
 				System.out.println("---------------------Start-------------------------------");
 				System.out.println();
