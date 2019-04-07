@@ -24,7 +24,8 @@ public class Server {
 		String dataRecievedFromClient = null;
 
 		try {
-			// ServerSocket reserving port
+
+			// Creating a server socket on defined port
 			try {
 				serverSocket = new ServerSocket(1234);
 			} catch (IOException e) {
@@ -54,8 +55,11 @@ public class Server {
 
 			// A server side Socket on ServerSocket, It waits till the connection is
 			// established!
+
+			System.out.println("Server socket on port 1234 waiting for client to connect...");
 			try {
 				socket = serverSocket.accept();
+
 			} catch (IOException ex) {
 				throw new ServerSocketException("Error_Custom", ex.getMessage());
 
@@ -67,8 +71,8 @@ public class Server {
 
 			}
 
-			System.out.println("Remote socket address : " + socket.getRemoteSocketAddress() + "Local Address : "
-					+ socket.getLocalAddress());
+			System.out.println("A client just connected to the server socket! Remote socket address : "
+					+ socket.getRemoteSocketAddress());
 
 			try {
 				socketInputStream = socket.getInputStream();
@@ -85,17 +89,17 @@ public class Server {
 			// Scanner for the input stream of the socket
 			scanner = new Scanner(socketInputStream);
 
-			System.out.println("Waiting for the client to send some data...");
-			
-			scanner.hasNextLine();
-			dataRecievedFromClient= scanner.nextLine();
-
 			// Let server wait for the input
+			System.out.println("Waiting for the client to send some data...");
+			scanner.hasNextLine();
+
 			try {
+				// Data received!
 				System.out.println();
-				System.out.println("Data recieved from client!");
+				System.out.println("Data received from client!");
+				dataRecievedFromClient = scanner.nextLine();
 				System.out.println();
-				System.out.println("---------------------Data Recieved-------------------------------");
+				System.out.println("---------------------Start-------------------------------");
 				System.out.println();
 				System.out.println(dataRecievedFromClient);
 				System.out.println();
@@ -124,7 +128,7 @@ public class Server {
 			printStream = new PrintStream(socketOutputStream);
 
 			String serverValue = "Got server acknowledgement! Your data has been processed.";
-			printStream.println(serverValue+". For Data : \n\n"+dataRecievedFromClient);
+			printStream.println(serverValue + ". For Data : \n\n" + dataRecievedFromClient);
 
 		} finally {
 
